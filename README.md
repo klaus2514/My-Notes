@@ -34,9 +34,6 @@ My-Notes/ │── My-Notes/ # Vite React app
 │── package.json # Dependencies & scripts
 │── README.md # Project documentation
 
-bash
-Copy
-Edit
 
 ## ⚙️ Installation & Setup  
 1. **Clone the repository**  
