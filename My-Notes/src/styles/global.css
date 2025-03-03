@@ -1,0 +1,10 @@
+@media (max-width: 600px) {
+  .auth-container, .notes-container {
+    width: 90%;
+  }
+
+  .note-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
