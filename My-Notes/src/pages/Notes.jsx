@@ -65,7 +65,7 @@ const Notes = () => {
         return;
       }
 
-      const response = await axios.get("http://localhost:5000/api/notes", {
+      const response = await axios.get("https://my-notes-mnzp.onrender.com/api/notes", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNotes(response.data);
@@ -103,7 +103,7 @@ const Notes = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/api/notes",
+        "https://my-notes-mnzp.onrender.com/api/notes",
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -135,7 +135,7 @@ const Notes = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:5000/api/notes/${noteId}`, {
+      await axios.delete(`https://my-notes-mnzp.onrender.com/api/notes/${noteId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -233,7 +233,7 @@ const Notes = () => {
       }
   
       const response = await axios.put(
-        `http://localhost:5000/api/notes/${selectedNote._id}`,
+        `https://my-notes-mnzp.onrender.com/api/notes/${selectedNote._id}`,
         formData,
         {
           headers: {
@@ -290,7 +290,7 @@ const Notes = () => {
 
       // Toggle the favorite status on the server
       const response = await axios.put(
-        `http://localhost:5000/api/notes/${noteId}/favorite`,
+        `https://my-notes-mnzp.onrender.com/api/notes/${noteId}/favorite`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

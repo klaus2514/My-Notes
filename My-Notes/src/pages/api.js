@@ -5,7 +5,7 @@ let authToken = localStorage.getItem("token"); // Get the token from localStorag
 // Function to refresh the token
 const refreshToken = async () => {
   try {
-    const response = await axios.post("http://localhost:5000/api/auth/refresh-token", {
+    const response = await axios.post("https://my-notes-mnzp.onrender.com/api/auth/refresh-token", {
       token: authToken,
     });
     const newToken = response.data.token;
@@ -47,7 +47,7 @@ axios.interceptors.response.use(
 // Function to make authenticated requests
 export const fetchNotes = async () => {
   try {
-    const response = await axios.get("http://localhost:5000/api/notes", {
+    const response = await axios.get("https://my-notes-mnzp.onrender.com/api/notes", {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     return response.data;
