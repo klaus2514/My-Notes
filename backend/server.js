@@ -10,8 +10,21 @@ dotenv.config();
 
 // Initialize Express app
 const app = express();
+
+// CORS Configuration
+const corsOptions = {
+  origin: [
+    process.env.FRONTEND_URL, // Your Vercel frontend URL
+    "http://localhost:5173", // Local development
+    // Add other domains as needed
+  ],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
 // Middleware
-app.use(cors()); // Enable CORS for frontend requests
+app.use(cors(corsOptions)); // Enable CORS with options
 app.use(express.json()); // Parse JSON request bodies
 
 // Connect to MongoDB Atlas
@@ -21,9 +34,8 @@ mongoose
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 // API Routes
-app.use("/api/auth", authRoutes); // Authentication routes (signup, login)
-app.use("/api/notes", require("./routes/noteRoutes"));
- // Notes-related routes
+app.use("/api/auth", authRoutes);
+app.use("/api/notes", noteRoutes);
 
 // Default Route
 app.get("/", (req, res) => {

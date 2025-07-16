@@ -1,352 +1,223 @@
-/* Default Light Mode */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5; /* Light background */
-    color: #000; /* Black text for contrast */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+/* ===== Journal-Themed Note Modal ===== */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@300;400;500&display=swap');
+
+:root {
+  /* Light Mode (Default) */
+  --paper-light: #f9f5e9;
+  --paper-dark: #e8dfc8;
+  --ink-dark: #3a3226;
+  --ink-light: #5a4e3a;
+  --accent-brown: #8b5a2b;
+  --shadow-soft: rgba(0, 0, 0, 0.1);
+  --border-natural: 1px solid #d1c7b7;
+
+  /* Dark Mode Overrides */
+  --dark-bg: #121212;
+  --dark-card: #1e1e1e;
+  --dark-text: #e0e0e0;
+  --dark-border: #333;
 }
 
-/* Dark Mode */
-body.dark-mode {
-    background: #121212; /* Dark background */
-    color: #fff; /* White text for contrast */
-}
-
-/* Body Background with Deep Dark Motion (Overrides for Dark Mode) */
-body.dark-mode {
-    background: linear-gradient(-45deg, #0a0a0a, #1a1a1a, #2a2a2a, #0a0a0a);
-    background-size: 400% 400%;
-    animation: gradientMotion 15s ease infinite;
-    color: #fff; /* White text for contrast */
-}
-
-/* Modal Overlay */
+/* === Modal Overlay === */
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* Modal Content */
+/* === Modal Content (Journal Style) === */
 .modal-content {
-    background: linear-gradient(135deg, #1a1a1a, #2a2a2a); /* Deep dark gradient background */
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    width: 90%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    color: #fff; /* White text for contrast */
-    animation: fadeIn 0.5s ease-in-out;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow-soft);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  border: var(--border-natural);
+  animation: fadeIn 0.3s ease-out;
 }
 
-/* Fullscreen Mode */
+body.dark-mode .modal-content {
+  background-color: var(--dark-card);
+  border-color: var(--dark-border);
+  color: var(--dark-text);
+}
+
+/* === Fullscreen Mode === */
 .modal.fullscreen .modal-content {
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-    border-radius: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
 }
 
-/* Close Button */
-.close-btn {
-    position: absolute;
-    right: 80px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #fff;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.close-btn:hover {
-    color: #ff4444;
-    transform: scale(1.2);
-}
-
-/* Button Container */
+/* === Modal Header (Buttons) === */
 .button-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    gap: 10px; /* Space between buttons */
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.8rem;
 }
 
-/* Fullscreen Button */
-.fullscreen-btn {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #fff;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.fullscreen-btn:hover {
-    color: #00cc66;
-    transform: scale(1.2);
-}
-
-/* Favorite Button */
-.favorite-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #fff;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.favorite-btn:hover {
-    color: #ffcc00;
-    transform: scale(1.2);
-}
-
-/* Delete Button */
+/* Button Styles (Close, Fullscreen, Favorite, Delete) */
+.close-btn,
+.fullscreen-btn,
+.favorite-btn,
 .delete-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #fff;
-    transition: transform 0.3s ease, color 0.3s ease;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--ink-dark);
+  transition: all 0.2s ease;
 }
 
-.delete-btn:hover {
-    color: #ff4444;
-    transform: scale(1.2);
+body.dark-mode .close-btn,
+body.dark-mode .fullscreen-btn,
+body.dark-mode .favorite-btn,
+body.dark-mode .delete-btn {
+  color: var(--dark-text);
 }
 
-/* Note Content */
+.close-btn:hover { color: #d32f2f; transform: scale(1.1); }
+.fullscreen-btn:hover { color: var(--accent-brown); transform: scale(1.1); }
+.favorite-btn:hover { color: #ffcc00; transform: scale(1.1); }
+.delete-btn:hover { color: #d32f2f; transform: scale(1.1); }
+
+/* === Note Content === */
+.modal-content h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--ink-dark);
+}
+
+body.dark-mode .modal-content h2 {
+  color: var(--dark-text);
+}
+
 .modal-content p {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-top: 40px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-light);
+  margin: 1.5rem 0;
 }
 
-/* Textarea for Editing */
+body.dark-mode .modal-content p {
+  color: #b0b0b0;
+}
+
+/* === Textarea (Editing Mode) === */
 textarea {
-    width: 100%;
-    height: 150px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    margin-top: 40px;
-    resize: vertical;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  font-size: 1rem;
+  border: var(--border-natural);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: var(--ink-dark);
+  resize: vertical;
+  margin: 1rem 0;
+}
+
+body.dark-mode textarea {
+  background-color: rgba(30, 30, 30, 0.7);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
 }
 
 textarea:focus {
-    outline: none;
-    border-color: #fff;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  outline: none;
+  border-color: var(--accent-brown);
+  box-shadow: 0 0 0 2px rgba(139, 90, 43, 0.2);
 }
 
-/* Audio Section */
-.audio-section {
-    margin-top: 20px;
+/* === Audio & Image Sections === */
+.audio-section,
+.image-section {
+  margin: 1.5rem 0;
 }
 
 .audio-section audio {
-    width: 100%;
-    margin-top: 10px;
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
-.audio-section p {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 10px;
-}
-
-/* Image Upload */
 .note-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-top: 10px;
-  }
-
-input[type="file"] {
-    margin-top: 20px;
-    color: #fff;
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  border: var(--border-natural);
 }
 
-/* Save and Edit Buttons */
+/* === Buttons (Save, Edit, Record) === */
 button {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+  background-color: var(--accent-brown);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
 }
 
 button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+  background-color: #6d4522;
+  transform: translateY(-2px);
 }
 
-/* Edit Button Specific */
-button:last-of-type {
-    background-color: rgba(40, 167, 69, 0.8);
-}
-
-button:last-of-type:hover {
-    background-color: rgba(33, 136, 56, 0.8);
-}
-
-.note input[type="text"] {
-    border: 2px solid rgba(54, 53, 53, 0.948); /* Black border */
-    padding: 8px; /* Adjust padding for better spacing */
-    font-size: 16px; /* Adjust font size */
-    color: black; /* Text color inside input */
-  }
-  
-  .note input[type="text"]::placeholder {
-    color: black; /* Placeholder text color */
-    opacity: 1; /* Ensure placeholder is fully visible */
-  }
-  
-
-/* Recording Button */
 .btn-record {
-    background-color: #ff4444; /* Red background */
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 25px; /* Rounded corners */
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Space between icon and text */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: #d32f2f;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.btn-record:hover {
-    background-color: #cc0000; /* Darker red on hover */
-    transform: scale(1.05);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-}
-
-.btn-record:active {
-    transform: scale(0.95);
-}
-
-/* Recording Animation */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
+.btn-record:hover { background-color: #b71c1c; }
 
 .btn-record.recording {
-    animation: pulse 1.5s infinite;
+  animation: pulse 1.5s infinite;
 }
 
-/* Notes Styling */
-.notes-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.note-card {
-    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.note-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-.note-card h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.note-card p {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* Animations */
+/* === Animations === */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-
-/* Toggle Button Container */
-.toggle-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
-/* Toggle Button */
-.toggle-button {
-    background-color: #f5f5f5 !important; /* Default background for moon (light mode) */
-    border: none;
-    padding: 10px;
-    border-radius: 50%; /* Circular button */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-}
-
-/* Dark Mode Toggle Button */
-body.dark-mode .toggle-button {
-    background-color: black !important; /* Background for sun (dark mode) */
-}
-
-/* Moon Icon (Light Mode) */
-.toggle-button .fa-moon {
-    color: black; /* Moon is black in light mode */
-}
-
-/* Sun Icon (Dark Mode) */
-body.dark-mode .toggle-button .fa-sun {
-    color: yellow; /* Sun is yellow in dark mode */
+/* === Responsive Adjustments === */
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 1.5rem;
+  }
+  
+  .button-container {
+    gap: 0.5rem;
+  }
+  
+  .modal-content h2 {
+    font-size: 1.8rem;
+  }
 }
