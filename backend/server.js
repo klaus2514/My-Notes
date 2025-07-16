@@ -15,7 +15,8 @@ const app = express();
 const corsOptions = {
   origin: [
     process.env.FRONTEND_URL, // Your Vercel frontend URL
-    "http://localhost:5173", // Local development
+    "http://localhost:5173",
+    "https://my-notes-go6e.vercel.app"// Local development
     // Add other domains as needed
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
